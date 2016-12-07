@@ -89,6 +89,8 @@ class QuotesSpider(scrapy.Spider):
             re2 = re.findall('community : ([\[\]{},0-9":\n]*)',m)
             d = JSONDecoder().decode(re2[0][:-2])
             item['prices'] = d;
+        else:
+            item['prices'] = '';
         #data = {'data':d}
         #匹配基本信息
         #dt = response.xpath("//dl[@class='comm-l-detail float-l']/dt/text()").extract()
@@ -96,17 +98,25 @@ class QuotesSpider(scrapy.Spider):
         tmp = response.xpath("//em[@class='comm-avg-price']/text()").extract()
         place = response.xpath("//*[@id='content']/div[6]/div[3]/div[1]/dl[1]/dd[2]/a[1]/@title").extract()
         district = response.xpath("//*[@id='content']/div[6]/div[3]/div[1]/dl[1]/dd[2]/a[2]/@title").extract()
-        if len(tmp) != 0 and tmp != '暂无均价':
+        if len(tmp) != 0 and tmp[0] != '暂无均价':
             item['unit_price'] = int(tmp[0])
+        else:
+            item['unit_price'] = ''
         if len(dd) != 0:
             item['title'] = dd[0]
+        else:
+            item['title'] = ''
         address = response.xpath('//*[@id="content"]/div[6]/div[3]/div[1]/dl[1]/dd[3]/em/text()').extract()
         if len(address) != 0:
             item['address'] = address[0]
+        else:
+            item['address'] = ''
         item['developer'] = dd[4]
         item['city'] = response.meta["city"]
         if len(place) != 0 and len(district) != 0:
             item['district'] = place[0] + "  " + district[0]
+        else:
+            item['district'] = ''
         item['property'] = dd[5]
         item['property_fee'] = dd[6]
         bankuai = ''
