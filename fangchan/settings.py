@@ -28,7 +28,7 @@ ROBOTSTXT_OBEY = True
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 # 进一步这个肯定是要去掉的,用动态的ip池防ban
-DOWNLOAD_DELAY = 2
+# DOWNLOAD_DELAY = 2
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -124,7 +124,7 @@ PROXIES = [
 
 #mysql数据库
 DB_CONFIG = {
-    'user':'spider',
-    'password':'.Boyiding123',
+    'user':'root',
+    'password':'1111',
     'db':'house_spider'
 }

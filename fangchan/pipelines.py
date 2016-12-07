@@ -44,7 +44,7 @@ class FangchanPipeline(object):
                         # prices = repr(item["prices"]),
                         # total_buildings = item["total_buildings"],
                         # total_houses = item["total_houses"],
-                        build_type = item["build_type"],
+                        # build_type = item["build_type"],
                         build_time = item["build_time"],
                         developer = item["developer"],
                         property = item["property"],
