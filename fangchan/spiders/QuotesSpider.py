@@ -24,7 +24,7 @@ class QuotesSpider(scrapy.Spider):
             for j in range(len(url)):
                 print(url[j])
                 uri = url[j] + '/community/'
-                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:],"url_prefix":url}, callback=self.parse_block)
+                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:],"url_prefix":url[j]}, callback=self.parse_block)
 
         #right
         for i in range(1, len(response.xpath('//*[@id="content"]/div[4]/div[2]/dl').extract())):
@@ -34,7 +34,7 @@ class QuotesSpider(scrapy.Spider):
             for j in range(len(url)):
                 print(url[j])
                 uri = url[j] + '/community/'
-                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:],"url_prefix":url}, callback=self.parse_block)
+                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:],"url_prefix":url[j]}, callback=self.parse_block)
 
         #rest
         for url in response.xpath('//*[@id="otherCity"]/dl/dd/a/@href').extract():
@@ -61,7 +61,7 @@ class QuotesSpider(scrapy.Spider):
         city = str(response.meta['city'])
         for url in response.xpath("//div[@class='li-info']/h3/a/@href").extract():
             url = response.meta["url_prefix"] + url
-            yield scrapy.Request(url,meta={"city":city},callback=self.parse_details)
+            yield scrapy.Request(url=url,meta={"city":city},callback=self.parse_details)
 
         next_page = response.xpath("//div[@class='multi-page']/a[@class=\"aNxt\"]/@href").extract()
         if(len(next_page) != 0):
