@@ -16,25 +16,25 @@ class QuotesSpider(scrapy.Spider):
     #按照不同的城市抓取
     def parse_district(self, response):
 
-        # #left
-        # for i in range(1,len(response.xpath('//*[@id="content"]/div[4]/div[1]/dl').extract())):
-        #     print(i)
-        #     pattern = '//*[@id="content"]/div[4]/div[1]/dl[%d]/dd/a/@href' % i
-        #     url = response.xpath(pattern).extract()
-        #     for j in range(len(url)):
-        #         print(url[j])
-        #         uri = url[j] + '/community/'
-        #         yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:]}, callback=self.parse_block)
-        #
-        # #right
-        # for i in range(1, len(response.xpath('//*[@id="content"]/div[4]/div[2]/dl').extract())):
-        #     print(i)
-        #     pattern = '//*[@id="content"]/div[4]/div[2]/dl[%d]/dd/a/@href' % i
-        #     url = response.xpath(pattern).extract()
-        #     for j in range(len(url)):
-        #         print(url[j])
-        #         uri = url[j] + '/community/'
-        #         yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:]}, callback=self.parse_block)
+        #left
+        for i in range(1,len(response.xpath('//*[@id="content"]/div[4]/div[1]/dl').extract())):
+            print(i)
+            pattern = '//*[@id="content"]/div[4]/div[1]/dl[%d]/dd/a/@href' % i
+            url = response.xpath(pattern).extract()
+            for j in range(len(url)):
+                print(url[j])
+                uri = url[j] + '/community/'
+                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:]}, callback=self.parse_block)
+
+        #right
+        for i in range(1, len(response.xpath('//*[@id="content"]/div[4]/div[2]/dl').extract())):
+            print(i)
+            pattern = '//*[@id="content"]/div[4]/div[2]/dl[%d]/dd/a/@href' % i
+            url = response.xpath(pattern).extract()
+            for j in range(len(url)):
+                print(url[j])
+                uri = url[j] + '/community/'
+                yield scrapy.Request(url=uri, meta={"city": url[j].split('.')[0][7:]}, callback=self.parse_block)
 
         #rest
         for url in response.xpath('//*[@id="otherCity"]/dl/dd/a/@href').extract():
